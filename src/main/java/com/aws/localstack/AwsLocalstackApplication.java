@@ -21,7 +21,11 @@ public class AwsLocalstackApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        amazonS3Service.createBucket("my-test");
-        amazonS3Service.uploadFile("my-test", Path.of("~/Desktop/hello-s3.txt"));
+        String bucketName = "my-test";
+        amazonS3Service.createBucket(bucketName);
+        Path pathToFile = Path.of("/home/konstantin/Desktop/hello-s3.txt");
+        amazonS3Service.uploadFile(bucketName, pathToFile);
+        byte[] content = amazonS3Service.readFile(bucketName, pathToFile.toFile().getName());
+        System.out.println(new String(content));
     }
 }

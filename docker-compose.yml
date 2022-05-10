@@ -3,14 +3,16 @@ version: '2.1'
 services:
   localstack:
     container_name: "${LOCALSTACK_DOCKER_NAME-localstack_edge-commander}"
-    image: localstack/localstack
+    image: localstack/localstack:0.10.6
     ports:
-      - "4569:4569"
-      - "4572:4572"
+      - "127.0.0.1:4569:4569"
+      - "127.0.0.1:4572:4572"
+      - "127.0.0.1:8082:8082"
     environment:
       - SERVICES=s3:4572
+      - HOSTNAME_EXTERNAL=localhost
       - DATA_DIR=/tmp/
-      - PORT_WEB_UI=${PORT_WEB_UI- }
+      - PORT_WEB_UI=8082
       - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
       - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
