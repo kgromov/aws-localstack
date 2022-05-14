@@ -18,6 +18,7 @@
     <properties>
         <java.version>11</java.version>
         <aws.sdk.version>2.17.186</aws.sdk.version>
+        <testcontainers.version>1.17.1</testcontainers.version>
     </properties>
 
     <dependencyManagement>
@@ -58,11 +59,30 @@
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>
         </dependency>
-
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>localstack</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-core</artifactId>
+            <version>1.12.213</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -5,15 +5,22 @@ services:
     container_name: "${LOCALSTACK_DOCKER_NAME-localstack_edge-commander}"
     image: localstack/localstack:0.10.6
     ports:
-      - "127.0.0.1:4569:4569"
-      - "127.0.0.1:4572:4572"
+      - "127.0.0.1:4563-4599:4563-4599"
       - "127.0.0.1:8082:8082"
     environment:
-      - SERVICES=s3:4572
+      - SERVICES=s3
       - HOSTNAME_EXTERNAL=localhost
-      - DATA_DIR=/tmp/
+      - DATA_DIR=/tmp/localstack/data
       - PORT_WEB_UI=8082
+      - DEBUG=1
+      - USER=root
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=MY-SECRET-KEY
+      - AWS_SECRET_ACCESS_KEY=MY-SECRET-KEY
       - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
-      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+#      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "./.localstack:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
+#    tmpfs:
+#      - /tmp/localstack:exec,mode=600
