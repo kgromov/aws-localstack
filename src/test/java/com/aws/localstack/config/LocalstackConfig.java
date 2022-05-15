@@ -1,11 +1,18 @@
 package com.aws.localstack.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 
+import javax.annotation.PreDestroy;
+
+@Slf4j
+@Profile("test")
 @TestConfiguration
 public class LocalstackConfig {
+
     @Bean
     public LocalStackContainer localStackContainer() {
         LocalStackContainer localStackContainer = new LocalStackContainer()
@@ -21,6 +28,7 @@ public class LocalstackConfig {
                 .withPrivilegedMode(true);
         localStackContainer.start();
         Integer mappedPort = localStackContainer.getMappedPort(4572);
+        log.info("s3 port = {}", localStackContainer.getMappedPort(4572));
         return localStackContainer;
     }
 }
