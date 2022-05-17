@@ -4,19 +4,18 @@ import com.aws.localstack.config.LocalstackConfig;
 import com.aws.localstack.config.TestAmazonS3Config;
 import com.aws.localstack.config.TestContainerShutdown;
 import com.aws.localstack.services.AmazonS3Service;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.event.annotation.AfterTestClass;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 
 import java.nio.file.Path;
 
 @ActiveProfiles("test")
 @SpringBootTest
+//@TestExecutionListeners({TestcontainerExecutionListener.class})
 @Import({LocalstackConfig.class, TestAmazonS3Config.class, TestContainerShutdown.class})
 public class S3IntegrationTest {
     @Autowired private AmazonS3Service amazonS3Service;
@@ -37,6 +36,4 @@ public class S3IntegrationTest {
         byte[] content = amazonS3Service.readFile(bucketName, fileKey);
         System.out.println(new String(content));
     }
-
-//    @AfterTestClass
 }

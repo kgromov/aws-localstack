@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 
-import javax.annotation.PreDestroy;
-
 @Slf4j
 @Profile("test")
 @TestConfiguration
