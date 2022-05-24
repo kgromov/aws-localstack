@@ -13,6 +13,11 @@ import javax.annotation.PreDestroy;
 public class TestContainerShutdown {
     private final LocalStackContainer localStackContainer;
 
+    /*
+     * This class is not needed - cause Testcontainer kills containers by itself:
+     * either on Java shutdown hook
+     * or by ryuk container which tracks hanging dockers - aka registry with health check
+     */
     @PreDestroy
     public void stopTestContainer(){
         localStackContainer.stop();
